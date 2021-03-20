@@ -1,4 +1,5 @@
 import express from 'express';
+import { create } from '../controllers/product';
 const router = express.Router();
 
 //list product
@@ -17,13 +18,7 @@ router.get('/product/:id', (req, res) => {
 })
 
 // add product
-router.post('/products', (req, res) => {
-    // res.json({
-        
-    // })
-    console.log(req.body);
-
-})
+router.post('/products', create)
 
 
 module.exports = router;
