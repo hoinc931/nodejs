@@ -40,7 +40,6 @@ export const create = (req, res) => {
             res.json(data)
         })
     })
-
 }
 
 //category detail
@@ -77,14 +76,12 @@ export const remove = (req, res) => {
 
 //list category
 export const list = (req, res) => {
-    Category.find((err, data) => {
+    Category.find((err, categories) => {
         if(err){
             error: "Can not find the category"
         }
 
-        res.json({
-            data
-        })
+        res.json({ categories })
     })
 }
 
@@ -109,15 +106,15 @@ export const update = (req, res) => {
         let category = req.category;
         category = _.assignIn(category, fields);
 
-        if(files.image){
-            if(files.image.size > 1000000){
-                res.status(400).json({
-                    error: "You should upload image size small than 10Mb"
-                })
-            }
-            category.image.data = fs.readFileSync(files.image.path);
-            category.image.contentType = files.image.path;
-        }
+        // if(files.image){
+        //     if(files.image.size > 1000000){
+        //         res.status(400).json({
+        //             error: "You should upload image size small than 10Mb"
+        //         })
+        //     }
+        //     category.image.data = fs.readFileSync(files.image.path);
+        //     category.image.contentType = files.image.path;
+        // }
         category.save((err, data) => {
             if(err){
                 res.status(400).json({
