@@ -2,6 +2,7 @@ import express from 'express';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import productRouter from './routes/product';
+import categoryRouter from './routes/category'
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 
@@ -24,8 +25,12 @@ mongoose.connection.on('Error', err => {
 //middleware
 app.use(bodyParser.json());
 
-//
+//routes products
 app.use('/api', productRouter);
+
+//routes categories
+app.use('/api', categoryRouter);
+
 
 //
 app.use(morgan('dev'));

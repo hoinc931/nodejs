@@ -1,24 +1,23 @@
 import express from 'express';
-import { create } from '../controllers/product';
+import { create, productById, list, read, remove, update } from '../controllers/product';
 const router = express.Router();
 
 //list product
-router.get('/products', (req, res) => {
-    res.json({
-        message: "successfully"
-    })
-})
+router.get('/products', list)
 
 // product detail
-router.get('/product/:id', (req, res) => {
-    res.json({
-        id: req.params.id,
-        name: "poduct 1"
-    })
-})
+router.get('/product/:productId', read)
+
+//delete product
+router.delete('/product/:productId', remove)
+
+//update product
+router.put('/product/:productId', update)
+
+//param
+router.param('productId', productById)
 
 // add product
 router.post('/products', create)
-
 
 module.exports = router;
