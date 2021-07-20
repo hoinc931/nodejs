@@ -13,24 +13,15 @@ export const create = (req, res) => {
                 error: "Add category failed"
             })
         }
-        const {name} = fields;
-        if(!name){
+        const { name } = fields;
+        if( !name ){
             return res.status(400).json({
                 error: "You should to enter full information!!!"
             })
         }
 
-        const category = new Category(fields);
-
-        // if(files.image){
-        //     if(files.image.size > 1000000){
-        //         res.status(400).json({
-        //             error: "You should upload image size small than 10Mb"
-        //         })
-        //     }
-        //     category.image.data = fs.readFileSync(files.image.path);
-        //     category.image.contentType = files.image.path;
-        // }
+        let category = new Category(fields);
+        
         category.save((err, data) => {
             if(err){
                 res.status(400).json({
@@ -40,6 +31,15 @@ export const create = (req, res) => {
             res.json(data)
         })
     })
+    // const category = new Category(req.body);
+    // category.save((err, data) => {
+    //     if(err){
+    //         res.status(400).json({
+    //             message: "Add category failed"
+    //         })
+    //     }
+    //     res.json(data)
+    // })
 }
 
 //category detail
@@ -124,4 +124,5 @@ export const update = (req, res) => {
             res.json(data)
         })
     })
+    
 }

@@ -19,13 +19,20 @@ const productSchema = mongoose.Schema({
         required: true, 
         trim: true
     },
+    detail:{
+        type: String,
+        maxLength: 1800,
+        required: true, 
+        trim: true
+    },
+    size: {
+        type: Array,
+        require: true,
+    },
     price: {
         type: Number,
         required: true,
         trim: true
-    },
-    shipping: {
-        type: Boolean
     },
     quantity: {
         type: Number,

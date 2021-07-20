@@ -1,6 +1,12 @@
 import express from 'express';
+import  { userById, isAdmin, isAuth, requireSignin } from '../controllers/auth'
 import { create, categoryById, list, read, remove, update } from '../controllers/category';
+import { categoryAddValidator } from '../validator';
 const router = express.Router();
+
+// add category
+// router.post('/categories', create)
+router.post("/category/create/:userId", requireSignin, isAuth, isAdmin, create);
 
 //list category
 router.get('/categories', list)
@@ -9,15 +15,13 @@ router.get('/categories', list)
 router.get('/category/:categoryId', read)
 
 //delete category
-router.delete('/category/:categoryId', remove)
+router.delete('/category/:categoryId/:userId', remove)
 
 //update category
 router.put('/category/:categoryId', update)
 
-//param category
+//param 
+router.param("userId", userById);
 router.param('categoryId', categoryById)
-
-// add category
-router.post('/categories', create)
 
 module.exports = router;

@@ -13,15 +13,14 @@ export const create = (req, res) => {
                 error: "Add product failed"
             })
         }
-        const {name, description, price} = fields;
-        if(!name || !description || !price){
+        const {name, category, description, detail, price} = fields;
+        if(!name || !category || !description || !detail || !price){
             return res.status(400).json({
                 error: "You should to enter full information!!!"
             })
         }
 
         let product = new Product(fields);
-
         if(files.image){
             if(files.image.size > 1000000){
                 res.status(400).json({
@@ -64,7 +63,7 @@ export const productById = (req, res, next, id) => {
         req.product = product;
         next();
     })
-}
+}   
 export const read = (req, res) => {
     return res.json(req.product)
 }
@@ -149,4 +148,13 @@ export const update = (req, res) => {
             res.json(data)
         })
     })
+}
+
+//get image
+export const image = (req, res, next) => {
+    if (req.product.image.data) {
+        res.set("Content-Type", req.product.image.contentType);
+        return res.send(req.product.image.data);
+    }
+    next();
 }
